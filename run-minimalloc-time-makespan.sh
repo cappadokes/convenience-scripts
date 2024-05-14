@@ -3,6 +3,8 @@
 time_file="/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/time/time.csv"
 > $time_file
 
+echo -e "\n\nRunning Minimalloc for minimalloc-benchmarks\n\n"
+
 for ((i=1; i<=2; i++))
 do
     echo "$i out of 20 runs"
@@ -11,15 +13,12 @@ do
         filename_no_ext="${base_filename%.*}"
         new_filename="${filename_no_ext}-out.csv"
 
-        echo "./minimalloc/minimalloc --capacity=1048576 --input=$input --output=new-outputs/$new_filename"
-
         start_time=$(date +%s%N)
         timeout 3m ./minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
         ret=$?
         end_time=$(date +%s%N)
 
         if [ $ret -eq 124 ]; then
-            echo "Timeout occurred for $input, running with new flags..."
             start_time=$(date +%s%N)
             timeout 3m ./minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
             ret=$?
@@ -69,8 +68,11 @@ done < /workspace/results/time-makespan/mindspore-benchmarks/idealloc-r21/makesp
 time_file="/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/time/time.csv"
 > $time_file
 
+echo -e "\n\nRunning Minimalloc for mindspore-benchmarks\n\n"
+
 for ((i=1; i<=2; i++))
 do
+    echo "$i out of 20 runs"
     index=0
     for input in /workspace/benchmarks/mindspore/*.csv; do
         capacity=$(( ${idealloc_res[$index]} * 4096 ))
@@ -78,15 +80,12 @@ do
         filename_no_ext="${base_filename%.*}"
         new_filename="${filename_no_ext}-out.csv"
 
-        echo "./minimalloc/minimalloc --capacity=$capacity --input=$input --output=new-outputs/$new_filename"
-
         start_time=$(date +%s%N)
         timeout 3m ./minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename
         ret=$?
         end_time=$(date +%s%N)
 
         if [ $ret -eq 124 ]; then
-            echo "Timeout occurred for $input, running with new flags..."
             start_time=$(date +%s%N)
             timeout 3m ./minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
             ret=$?

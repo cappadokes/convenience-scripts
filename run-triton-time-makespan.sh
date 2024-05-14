@@ -3,6 +3,8 @@
 time_file="/workspace/results/time-makespan/minimalloc-benchmarks/triton/time/time.csv"
 > $time_file
 
+echo -e "\n\nRunning Triton for minimalloc-benchmarks\n\n"
+
 for ((i=1; i<=2; i++))
 do  
     echo "$i out of 20 runs"
@@ -42,6 +44,8 @@ done
 
 time_file="/workspace/results/time-makespan/mindspore-benchmarks/triton/time/time.csv"
 > $time_file
+
+echo -e "\n\nRunning Triton for mindspore-benchmarks\n\n"
 
 for ((i=1; i<=2; i++))
 do  

@@ -24,6 +24,8 @@ do
     time_file="/workspace/results/time-makespan/$dir/idealloc-r1/time/time.csv"
     > $time_file
 
+    echo -e "\n\nRunning Idealloc (1 iteration) for $dir\n\n"
+
     for ((i=1; i<=2; i++)); do
         echo "$i out of 20 runs"
         > $makespan_file
@@ -54,6 +56,8 @@ do
 
     time_file="/workspace/results/time-makespan/$dir/idealloc-r21/time/time.csv"
     > $time_file
+
+    echo -e "\n\nRunning Idealloc (21 iterations) for $dir\n\n"
 
     for ((i=1; i<=2; i++)); do
         echo "$i out of 20 runs"
