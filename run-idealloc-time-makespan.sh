@@ -34,11 +34,10 @@ do
                 makespan=$(echo "$output" | grep -oE 'Improved! Current best = [0-9]+' | tail -n 1 | awk '{print $5}')
                 time=$(echo "$output" | grep -oE 'Allocation time was [0-9]+' | awk '{print $4}')
 
-                if [ -z "$makespan" ] && [ -z "$time" ]; then
-                    echo -n "Failed," >> "$makespan_file"
+                if [ $ret -eq 124 ]; then
                     echo -n "Failed," >> "$time_file"
                 else
-                    echo -n "$makespan," >> "$makespan_file"
+                    echo "$filename_no_ext: $makespan" >> "$makespan_file"
                     echo -n "$time," >> "$time_file"
                 fi
                 
@@ -46,7 +45,6 @@ do
                 rm optimized*
             fi
         done
-        echo "" >> $makespan_file
         echo "" >> $time_file
     done
 
@@ -63,14 +61,14 @@ do
                 $adapt_bin $file
                 filename_no_ext=$(basename -- "$file" .csv)
                 output=$(timeout 3m $coreba_bin 21 MCTS:RAND "$filename_no_ext.plc")
+                ret=$?
                 makespan=$(echo "$output" | grep -oE 'Improved! Current best = [0-9]+' | tail -n 1 | awk '{print $5}')
                 time=$(echo "$output" | grep -oE 'Allocation time was [0-9]+' | awk '{print $4}')
                 
-                if [ -z "$makespan" ] && [ -z "$time" ]; then
-                    echo -n "Failed," >> "$makespan_file"
+                if [ $ret -eq 124 ]; then
                     echo -n "Failed," >> "$time_file"
                 else
-                    echo -n "$makespan," >> "$makespan_file"
+                    echo "$filename_no_ext: $makespan" >> "$makespan_file"
                     echo -n "$time," >> "$time_file"
                 fi
 
@@ -78,7 +76,6 @@ do
                 rm optimized*
             fi
         done
-        echo "" >> $makespan_file
         echo "" >> $time_file
     done
 done

@@ -34,7 +34,7 @@ for file in $outfiles/*.csv; do
         filename_no_ext=$(basename -- "$file" .csv)
         output=$($report_bin "$filename_no_ext.plc")
         makespan=$(echo "$output" | sed -n '3 s/[^0-9]*\([0-9]*\).*/\1/p')
-        echo  "$filename_no_ext: $makespan" >> "$makespan_file"
+        echo "$filename_no_ext: $makespan" >> "$makespan_file"
         rm "$filename_no_ext.plc"
         rm -rf '"'$filename_no_ext'"_m_62'
     fi
@@ -43,13 +43,13 @@ done
 time_file="/workspace/results/time-makespan/mindspore-benchmarks/triton/time/time.csv"
 > $time_file
 
-for ((i=1; i<=2; i++))
+for ((i=1; i<=20; i++))
 do  
     echo "$i out of 20 runs"
     for input in /workspace/benchmarks/mindspore/*.csv; do
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
-        time=$(BASE_PATH=/workspace/results/time-makespan/mindspore-benchmarks/triton TRACE_NAME=$filename_no_ext timeout 2s /workspace/triton/triton_packer $input)
+        time=$(BASE_PATH=/workspace/results/time-makespan/mindspore-benchmarks/triton TRACE_NAME=$filename_no_ext timeout 3m /workspace/triton/triton_packer $input)
         ret=$?
         if [ $ret -eq 124 ]; then
             echo -n "Failed," >> $time_file
@@ -71,7 +71,7 @@ for file in $outfiles/*.csv; do
         filename_no_ext=$(basename -- "$file" .csv)
         output=$($report_bin "$filename_no_ext.plc")
         makespan=$(echo "$output" | sed -n '3 s/[^0-9]*\([0-9]*\).*/\1/p')
-        echo  "$filename_no_ext: $makespan" >> "$makespan_file"
+        echo "$filename_no_ext: $makespan" >> "$makespan_file"
         rm "$filename_no_ext.plc"
         rm -rf '"'$filename_no_ext'"_m_62'
     fi
