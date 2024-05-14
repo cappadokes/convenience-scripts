@@ -25,6 +25,7 @@ do
     > $time_file
 
     for ((i=1; i<=20; i++)); do
+        echo "$i out of 20 runs"
         > $makespan_file
         for file in $tensor_sets/*.csv; do
             if [ -f "$file" ]; then
@@ -55,6 +56,7 @@ do
     > $time_file
 
     for ((i=1; i<=20; i++)); do
+        echo "$i out of 20 runs"
         > $makespan_file
         for file in $tensor_sets/*.csv; do
             if [ -f "$file" ]; then

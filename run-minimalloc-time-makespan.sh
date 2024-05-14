@@ -5,14 +5,13 @@ time_file="/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/tim
 
 for ((i=1; i<=20; i++))
 do
-    index=0
+    echo "$i out of 20 runs"
     for input in /workspace/benchmarks/minimalloc/*.csv; do
-        capacity=$(( ${idealloc_res[$index]} * 4096 ))
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
         new_filename="${filename_no_ext}-out.csv"
 
-        echo "./minimalloc/minimalloc --capacity=$capacity --input=$input --output=new-outputs/$new_filename"
+        echo "./minimalloc/minimalloc --capacity=1048576 --input=$input --output=new-outputs/$new_filename"
 
         start_time=$(date +%s%N)
         timeout 3m ./minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
@@ -22,7 +21,7 @@ do
         if [ $ret -eq 124 ]; then
             echo "Timeout occurred for $input, running with new flags..."
             start_time=$(date +%s%N)
-            timeout 3m ./minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
+            timeout 3m ./minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
             ret=$?
             end_time=$(date +%s%N)
             if [ $ret -eq 124 ]; then
@@ -36,8 +35,6 @@ do
             elapsed_time=$(( ($end_time - $start_time) / 1000 ))
             echo -n "$elapsed_time," >> $time_file
         fi
-
-        ((index++))
     done
     echo "" >> $time_file
 done

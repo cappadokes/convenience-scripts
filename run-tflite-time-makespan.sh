@@ -1,78 +1,82 @@
 #!/bin/bash
 
-time_file="/workspace/results/time-makespan/minimalloc-benchmarks/triton/time/time.csv"
-> $time_file
-
-for ((i=1; i<=20; i++))
-do  
-    echo "$i out of 20 runs"
-    for input in /workspace/benchmarks/minimalloc/*.csv; do
-        base_filename=$(basename "$input")
-        filename_no_ext="${base_filename%.*}"
-        time=$(BASE_PATH=/workspace/results/time-makespan/minimalloc-benchmarks/triton TRACE_NAME=$filename_no_ext timeout 3m /workspace/triton/triton_packer $input)
-        ret=$?
-        if [ $ret -eq 124 ]; then
-            echo -n "Failed," >> $time_file
-            rm /workspace/results/time-makespan/minimalloc-benchmarks/triton/csv-out/$filename_no_ext-out.csv
-        else
-            echo -n "$time," >> "$time_file"
-        fi
-    done
-    echo "" >> $time_file
-done
-
-outfiles="/workspace/results/time-makespan/minimalloc-benchmarks/triton/csv-out"
-makespan_file="/workspace/results/time-makespan/minimalloc-benchmarks/triton/makespan/makespan.csv"
-> $makespan_file
-
+algorithms=("equality" "greedy-breadth" "greedy-size" "greedy-inorder" "mincostflow" "naive")
+bin="/workspace/tensorflow/bazel-bin/tensorflow/lite/delegates/gpu/common/packing_profile_test"
 adapt_bin="/workspace/idealloc/adapt"
 report_bin="/workspace/idealloc/report"
 
-for file in $outfiles/*.csv; do
-    if [ -f "$file" ]; then
-        $adapt_bin $file
-        filename_no_ext=$(basename -- "$file" .csv)
-        output=$($report_bin "$filename_no_ext.plc")
-        makespan=$(echo "$output" | sed -n '3 s/[^0-9]*\([0-9]*\).*/\1/p')
-        echo "$filename_no_ext: $makespan" >> "$makespan_file"
-        rm "$filename_no_ext.plc"
-        rm -rf '"'$filename_no_ext'"_m_62'
-    fi
-done
+for algo in "${algorithms[@]}"; do
+    time_file="/workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo/time/time.csv"
+    > $time_file
 
-time_file="/workspace/results/time-makespan/mindspore-benchmarks/triton/time/time.csv"
-> $time_file
+    for ((i=1; i<=20; i++))
+    do  
+        echo "$i out of 20 runs"
+        for input in /workspace/benchmarks/minimalloc/*.csv; do
+            base_filename=$(basename "$input")
+            filename_no_ext="${base_filename%.*}"
+            time=$(BASE_PATH=/workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo TRACE_NAME=$filename_no_ext timeout 3m $bin $input $algo)
+            ret=$?
+            if [ $ret -eq 124 ]; then
+                echo -n "Failed," >> $time_file
+                rm /workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo/csv-out/$filename_no_ext-out.csv
+            else
+                echo -n "$time," >> "$time_file"
+            fi
+        done
+        echo "" >> $time_file
+    done
 
-for ((i=1; i<=20; i++))
-do  
-    echo "$i out of 20 runs"
-    for input in /workspace/benchmarks/mindspore/*.csv; do
-        base_filename=$(basename "$input")
-        filename_no_ext="${base_filename%.*}"
-        time=$(BASE_PATH=/workspace/results/time-makespan/mindspore-benchmarks/triton TRACE_NAME=$filename_no_ext timeout 3m /workspace/triton/triton_packer $input)
-        ret=$?
-        if [ $ret -eq 124 ]; then
-            echo -n "Failed," >> $time_file
-            rm /workspace/results/time-makespan/mindspore-benchmarks/triton/csv-out/$filename_no_ext-out.csv
-        else
-            echo -n "$time," >> "$time_file"
+    outfiles="/workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo/csv-out"
+    makespan_file="/workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo/makespan/makespan.csv"
+    > $makespan_file
+
+    for file in $outfiles/*.csv; do
+        if [ -f "$file" ]; then
+            $adapt_bin $file
+            filename_no_ext=$(basename -- "$file" .csv)
+            output=$($report_bin "$filename_no_ext.plc")
+            makespan=$(echo "$output" | sed -n '3 s/[^0-9]*\([0-9]*\).*/\1/p')
+            echo "$filename_no_ext: $makespan" >> "$makespan_file"
+            rm "$filename_no_ext.plc"
+            rm -rf '"'$filename_no_ext'"_m_62'
         fi
     done
-    echo "" >> $time_file
-done
 
-outfiles="/workspace/results/time-makespan/mindspore-benchmarks/triton/csv-out"
-makespan_file="/workspace/results/time-makespan/mindspore-benchmarks/triton/makespan/makespan.csv"
-> $makespan_file
+    time_file="/workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo/time/time.csv"
+    > $time_file
 
-for file in $outfiles/*.csv; do
-    if [ -f "$file" ]; then
-        $adapt_bin $file
-        filename_no_ext=$(basename -- "$file" .csv)
-        output=$($report_bin "$filename_no_ext.plc")
-        makespan=$(echo "$output" | sed -n '3 s/[^0-9]*\([0-9]*\).*/\1/p')
-        echo "$filename_no_ext: $makespan" >> "$makespan_file"
-        rm "$filename_no_ext.plc"
-        rm -rf '"'$filename_no_ext'"_m_62'
-    fi
+    for ((i=1; i<=20; i++))
+    do  
+        echo "$i out of 20 runs"
+        for input in /workspace/benchmarks/mindspore/*.csv; do
+            base_filename=$(basename "$input")
+            filename_no_ext="${base_filename%.*}"
+            time=$(BASE_PATH=/workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo TRACE_NAME=$filename_no_ext timeout 3m $bin $input $algo)
+            ret=$?
+            if [ $ret -eq 124 ]; then
+                echo -n "Failed," >> $time_file
+                rm /workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo/csv-out/$filename_no_ext-out.csv
+            else
+                echo -n "$time," >> "$time_file"
+            fi
+        done
+        echo "" >> $time_file
+    done
+
+    outfiles="/workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo/csv-out"
+    makespan_file="/workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo/makespan/makespan.csv"
+    > $makespan_file
+
+    for file in $outfiles/*.csv; do
+        if [ -f "$file" ]; then
+            $adapt_bin $file
+            filename_no_ext=$(basename -- "$file" .csv)
+            output=$($report_bin "$filename_no_ext.plc")
+            makespan=$(echo "$output" | sed -n '3 s/[^0-9]*\([0-9]*\).*/\1/p')
+            echo "$filename_no_ext: $makespan" >> "$makespan_file"
+            rm "$filename_no_ext.plc"
+            rm -rf '"'$filename_no_ext'"_m_62'
+        fi
+    done
 done
