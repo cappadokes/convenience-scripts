@@ -15,7 +15,7 @@ do
         ret=$?
         if [ $ret -eq 124 ]; then
             echo -n "Failed," >> $time_file
-            if [ -f "/workspace/results/time-makespan/minimalloc-benchmarks/triton/csv-out/$filename_no_ext-out.csv"]; then
+            if [ -f "/workspace/results/time-makespan/minimalloc-benchmarks/triton/csv-out/$filename_no_ext-out.csv" ]; then
                 rm /workspace/results/time-makespan/minimalloc-benchmarks/triton/csv-out/$filename_no_ext-out.csv
             fi
         else
@@ -59,7 +59,7 @@ do
         ret=$?
         if [ $ret -eq 124 ]; then
             echo -n "Failed," >> $time_file
-            if [ -f "/workspace/results/time-makespan/mindspore-benchmarks/triton/csv-out/$filename_no_ext-out.csv"]; then
+            if [ -f "/workspace/results/time-makespan/mindspore-benchmarks/triton/csv-out/$filename_no_ext-out.csv" ]; then
                 rm /workspace/results/time-makespan/mindspore-benchmarks/triton/csv-out/$filename_no_ext-out.csv
             fi
         else

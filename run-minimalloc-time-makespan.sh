@@ -25,7 +25,7 @@ do
             end_time=$(date +%s%N)
             if [ $ret -eq 124 ]; then
                 echo -n "Failed," >> $time_file
-                if [ -f "/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename"]; then
+                if [ -f "/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename" ]; then
                     rm /workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
                 fi
             else
@@ -93,7 +93,7 @@ do
             end_time=$(date +%s%N)
             if [ $ret -eq 124 ]; then
                 echo -n "Failed," >> $time_file
-                if [ -f "/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename"]; then
+                if [ -f "/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename" ]; then
                     rm /workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename
                 fi
             else
