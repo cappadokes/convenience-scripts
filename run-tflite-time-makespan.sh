@@ -21,7 +21,9 @@ for algo in "${algorithms[@]}"; do
             ret=$?
             if [ $ret -eq 124 ]; then
                 echo -n "Failed," >> $time_file
-                rm /workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo/csv-out/$filename_no_ext-out.csv
+                if [ -f "/workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo/csv-out/$filename_no_ext-out.csv"]; then
+                    rm /workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo/csv-out/$filename_no_ext-out.csv
+                fi
             else
                 echo -n "$time," >> "$time_file"
             fi
@@ -60,7 +62,9 @@ for algo in "${algorithms[@]}"; do
             ret=$?
             if [ $ret -eq 124 ]; then
                 echo -n "Failed," >> $time_file
-                rm /workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo/csv-out/$filename_no_ext-out.csv
+                if [ -f "/workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo/csv-out/$filename_no_ext-out.csv"]; then
+                    rm /workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo/csv-out/$filename_no_ext-out.csv
+                fi
             else
                 echo -n "$time," >> "$time_file"
             fi

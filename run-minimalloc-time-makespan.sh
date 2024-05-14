@@ -25,7 +25,9 @@ do
             end_time=$(date +%s%N)
             if [ $ret -eq 124 ]; then
                 echo -n "Failed," >> $time_file
-                rm /workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
+                if [ -f "/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename"]; then
+                    rm /workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
+                fi
             else
                 elapsed_time=$(( ($end_time - $start_time) / 1000 ))
                 echo -n "$elapsed_time," >> $time_file
@@ -61,7 +63,7 @@ idealloc_res=()
 
 while IFS= read -r line; do
     number=$(grep -oE '[0-9]+' <<< "$line")
-    numbers+=("$number")
+    idealloc_res+=("$number")
 done < /workspace/results/time-makespan/mindspore-benchmarks/idealloc-r21/makespan/makespan.txt
 
 time_file="/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/time/time.csv"
@@ -91,7 +93,9 @@ do
             end_time=$(date +%s%N)
             if [ $ret -eq 124 ]; then
                 echo -n "Failed," >> $time_file
-                rm /workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename
+                if [ -f "/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename"]; then
+                    rm /workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename
+                fi
             else
                 elapsed_time=$(( ($end_time - $start_time) / 1000 ))
                 echo -n "$elapsed_time," >> $time_file
