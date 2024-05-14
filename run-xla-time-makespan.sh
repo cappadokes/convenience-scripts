@@ -7,7 +7,7 @@ for packer in "${packers[@]}"; do
         bin=""
         case $packer in
             "xla-best-fit-repacker")
-                bin=""
+                bin="/workspace/xla/bazel-bin/xla/service/memory_space_assignment/best_fit_repacker_prof"
                 ;;
             "xla-desc-size-heap-sim")
                 bin=""
