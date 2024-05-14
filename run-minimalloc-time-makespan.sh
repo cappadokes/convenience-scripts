@@ -61,8 +61,7 @@ done
 
 idealloc_res=()
 
-while IFS= read -r line; do
-    number=$(grep -oE '[0-9]+' <<< "$line")
+while read -r _ number; do
     idealloc_res+=("$number")
 done < /workspace/results/time-makespan/mindspore-benchmarks/idealloc-r21/makespan/makespan.txt
 
