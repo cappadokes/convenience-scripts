@@ -39,8 +39,8 @@ for algo in "${algorithms[@]}"; do
         if [ -f "$file" ]; then
             $adapt_bin $file
             filename_no_ext=$(basename -- "$file" .csv)
-            output=$($report_bin "$filename_no_ext.plc")
-            makespan=$(echo "$output" | sed -n '3 s/[^0-9]*\([0-9]*\).*/\1/p')
+            output=$($report_bin "$filename_no_ext.plc" | grep Makespan | grep pages)
+            makespan=$(echo "$output" | awk '{print $NF}')
             echo "$filename_no_ext: $makespan" >> "$makespan_file"
             rm "$filename_no_ext.plc"
             rm -rf '"'$filename_no_ext'"_m_62'
@@ -80,8 +80,8 @@ for algo in "${algorithms[@]}"; do
         if [ -f "$file" ]; then
             $adapt_bin $file
             filename_no_ext=$(basename -- "$file" .csv)
-            output=$($report_bin "$filename_no_ext.plc")
-            makespan=$(echo "$output" | sed -n '3 s/[^0-9]*\([0-9]*\).*/\1/p')
+            output=$($report_bin "$filename_no_ext.plc" | grep Makespan | grep pages)
+            makespan=$(echo "$output" | awk '{print $NF}')
             echo "$filename_no_ext: $makespan" >> "$makespan_file"
             rm "$filename_no_ext.plc"
             rm -rf '"'$filename_no_ext'"_m_62'
