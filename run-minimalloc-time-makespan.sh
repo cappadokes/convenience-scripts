@@ -14,7 +14,7 @@ do
         new_filename="${filename_no_ext}-out.csv"
 
         start_time=$(date +%s%N)
-        timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
+        timeout 3m /workspace/minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
         ret=$?
         end_time=$(date +%s%N)
 
