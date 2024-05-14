@@ -83,13 +83,13 @@ do
         echo "$capacity - $filename_no_ext"
 
         start_time=$(date +%s%N)
-        timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename
+        timeout 30s /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename
         ret=$?
         end_time=$(date +%s%N)
 
         if [ $ret -eq 124 ]; then
             start_time=$(date +%s%N)
-            timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
+            timeout 30s /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
             ret=$?
             end_time=$(date +%s%N)
             if [ $ret -eq 124 ]; then
