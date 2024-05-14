@@ -13,5 +13,6 @@ fi
 num_jobs=$1
 
 cd /workspace/xla
+bazel build --test_output=all --spawn_strategy=sandboxed //xla/service:bestfitheap_test --jobs=$num_jobs
 bazel build --test_output=all --spawn_strategy=sandboxed //xla/service/memory_space_assignment:best_fit_repacker_prof --jobs=$num_jobs
 cd /workspace
