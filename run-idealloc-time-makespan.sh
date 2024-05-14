@@ -5,8 +5,7 @@ coreba_bin="/workspace/idealloc/coreba"
 
 tensor_sets_arr=("/workspace/benchmarks/minimalloc" "/workspace/benchmarks/mindspore")
 
-for tensor_sets in "${tensor_sets_arr[@]}"
-do
+for tensor_sets in "${tensor_sets_arr[@]}"; do
     times=0
     dir=""
     case $tensor_sets in

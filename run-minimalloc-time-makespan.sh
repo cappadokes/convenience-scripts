@@ -5,36 +5,29 @@ time_file="/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/tim
 
 echo -e "\n\nRunning Minimalloc for minimalloc-benchmarks\n\n"
 
-for ((i=1; i<=20; i++))
-do
+for ((i=1; i<=20; i++)) do
     echo "$i out of 20 runs"
     for input in /workspace/benchmarks/minimalloc/*.csv; do
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
         new_filename="${filename_no_ext}-out.csv"
 
-        start_time=$(date +%s%N)
-        timeout 3m /workspace/minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
-        ret=$?
-        end_time=$(date +%s%N)
+        time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename 2>&1)
 
-        if [ $ret -eq 124 ]; then
-            start_time=$(date +%s%N)
-            timeout 3m /workspace/minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
-            ret=$?
-            end_time=$(date +%s%N)
-            if [ $ret -eq 124 ]; then
+        if [ $? -eq 124 ]; then
+            time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false 2>&1)
+            if [ $? -eq 124 ]; then
                 echo -n "Failed," >> $time_file
                 if [ -f "/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename" ]; then
                     rm /workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
                 fi
             else
-                elapsed_time=$(( ($end_time - $start_time) / 1000 ))
-                echo -n "$elapsed_time," >> $time_file
+                time=$(awk -v seconds="$time" 'BEGIN { printf "%.0f", seconds * 1000000 }')
+                echo -n "$time," >> $time_file
             fi
         else
-            elapsed_time=$(( ($end_time - $start_time) / 1000 ))
-            echo -n "$elapsed_time," >> $time_file
+            time=$(awk -v seconds="$time" 'BEGIN { printf "%.0f", seconds * 1000000 }')
+            echo -n "$time," >> $time_file
         fi
     done
     echo "" >> $time_file
@@ -70,8 +63,7 @@ time_file="/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/time
 
 echo -e "\n\nRunning Minimalloc for mindspore-benchmarks\n\n"
 
-for ((i=1; i<=20; i++))
-do
+for ((i=1; i<=20; i++)) do
     echo "$i out of 20 runs"
     index=0
     for input in /workspace/benchmarks/mindspore/*.csv; do
@@ -80,28 +72,22 @@ do
         filename_no_ext="${base_filename%.*}"
         new_filename="${filename_no_ext}-out.csv"
 
-        start_time=$(date +%s%N)
-        timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename
-        ret=$?
-        end_time=$(date +%s%N)
+        time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename 2>&1)
 
-        if [ $ret -eq 124 ]; then
-            start_time=$(date +%s%N)
-            timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
-            ret=$?
-            end_time=$(date +%s%N)
-            if [ $ret -eq 124 ]; then
+        if [ $? -eq 124 ]; then
+            time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false 2>&1)
+            if [ $? -eq 124 ]; then
                 echo -n "Failed," >> $time_file
                 if [ -f "/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename" ]; then
                     rm /workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename
                 fi
             else
-                elapsed_time=$(( ($end_time - $start_time) / 1000 ))
-                echo -n "$elapsed_time," >> $time_file
+                time=$(awk -v seconds="$time" 'BEGIN { printf "%.0f", seconds * 1000000 }')
+                echo -n "$time," >> $time_file
             fi
         else
-            elapsed_time=$(( ($end_time - $start_time) / 1000 ))
-            echo -n "$elapsed_time," >> $time_file
+            time=$(awk -v seconds="$time" 'BEGIN { printf "%.0f", seconds * 1000000 }')
+            echo -n "$time," >> $time_file
         fi
 
         ((index++))
