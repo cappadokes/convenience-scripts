@@ -7,6 +7,12 @@ mkdir /workspace/benchmarks/minimalloc
 cp /workspace/minimalloc/benchmarks/challenging/* /workspace/benchmarks/minimalloc/
 cd /workspace/benchmarks/mindspore && unzip mindspore.zip
 
+# Also, create directory for sorted benchmarks (TFlite expectes pre-sorted tensor usage records, based on liveness interals)
+
+mkdir /workspace/benchmarks/presorted
+mkdir /workspace/benchmarks/presorted/minimalloc
+mkdir /workspace/benchmarks/presorted/mindspore
+
 # Create result directory tree
 
 mkdir /workspace/results
