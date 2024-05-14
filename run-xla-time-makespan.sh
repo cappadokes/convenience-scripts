@@ -1,7 +1,6 @@
 #!/bin/bash
 benchmark_types=("minimalloc" "mindspore")
-# packers=("xla-best-fit-repacker" "xla-desc-size-heap-sim")
-packers=("xla-best-fit-repacker")
+packers=("xla-best-fit-repacker" "xla-desc-size-heap-sim")
 for packer in "${packers[@]}"; do
     for benchmark_type in "${benchmark_types[@]}"; do
         bin=""
@@ -10,7 +9,7 @@ for packer in "${packers[@]}"; do
                 bin="/workspace/xla/bazel-bin/xla/service/memory_space_assignment/best_fit_repacker_prof"
                 ;;
             "xla-desc-size-heap-sim")
-                bin=""
+                bin="/workspace/xla/bazel-bin/xla/service/bestfitheap_test"
                 ;;
         esac
 
