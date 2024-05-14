@@ -14,7 +14,7 @@ for algo in "${algorithms[@]}"; do
     for ((i=1; i<=2; i++))
     do  
         echo "$i out of 20 runs"
-        for input in /workspace/benchmarks/minimalloc/*.csv; do
+        for input in /workspace/benchmarks/presorted/minimalloc/*.csv; do
             base_filename=$(basename "$input")
             filename_no_ext="${base_filename%.*}"
             time=$(BASE_PATH=/workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo TRACE_NAME=$filename_no_ext timeout 3m $bin $input $algo)
@@ -53,7 +53,7 @@ for algo in "${algorithms[@]}"; do
     for ((i=1; i<=2; i++))
     do  
         echo "$i out of 20 runs"
-        for input in /workspace/benchmarks/mindspore/*.csv; do
+        for input in /workspace/benchmarks/presorted/mindspore/*.csv; do
             base_filename=$(basename "$input")
             filename_no_ext="${base_filename%.*}"
             time=$(BASE_PATH=/workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo TRACE_NAME=$filename_no_ext timeout 3m $bin $input $algo)

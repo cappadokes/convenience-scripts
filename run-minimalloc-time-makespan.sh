@@ -14,13 +14,13 @@ do
         new_filename="${filename_no_ext}-out.csv"
 
         start_time=$(date +%s%N)
-        timeout 3m ./minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
+        timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
         ret=$?
         end_time=$(date +%s%N)
 
         if [ $ret -eq 124 ]; then
             start_time=$(date +%s%N)
-            timeout 3m ./minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
+            timeout 3m /workspace/minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
             ret=$?
             end_time=$(date +%s%N)
             if [ $ret -eq 124 ]; then
@@ -80,13 +80,13 @@ do
         new_filename="${filename_no_ext}-out.csv"
 
         start_time=$(date +%s%N)
-        timeout 3m ./minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename
+        timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename
         ret=$?
         end_time=$(date +%s%N)
 
         if [ $ret -eq 124 ]; then
             start_time=$(date +%s%N)
-            timeout 3m ./minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
+            timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false
             ret=$?
             end_time=$(date +%s%N)
             if [ $ret -eq 124 ]; then
