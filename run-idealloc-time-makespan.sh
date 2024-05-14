@@ -34,6 +34,7 @@ do
                 $adapt_bin $file
                 filename_no_ext=$(basename -- "$file" .csv)
                 output=$(timeout 3m $coreba_bin 1 MCTS:RAND "$filename_no_ext.plc")
+                ret=$?
                 makespan=$(echo "$output" | grep -oE 'Improved! Current best = [0-9]+' | tail -n 1 | awk '{print $5}')
                 time=$(echo "$output" | grep -oE 'Allocation time was [0-9]+' | awk '{print $4}')
 
