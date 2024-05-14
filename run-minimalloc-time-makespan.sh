@@ -81,6 +81,8 @@ do
         filename_no_ext="${base_filename%.*}"
         new_filename="${filename_no_ext}-out.csv"
 
+        echo "$capacity - $filename_no_ext"
+
         start_time=$(date +%s%N)
         timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename
         ret=$?
