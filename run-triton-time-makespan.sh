@@ -10,14 +10,13 @@ do
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
         time=$(BASE_PATH=/workspace/results/time-makespan/minimalloc-benchmarks/triton TRACE_NAME=$filename_no_ext timeout 3m /workspace/triton/triton_packer $input)
-
+        ret=$?
         if [ $ret -eq 124 ]; then
             echo -n "Failed," >> $time_file
             rm /workspace/results/time-makespan/minimalloc-benchmarks/triton/csv-out/$filename_no_ext-out.csv
         else
             echo -n "$time," >> "$time_file"
         fi
-
     done
     echo "" >> $time_file
 done
