@@ -24,7 +24,7 @@ do
 done
 
 outfiles="/workspace/results/time-makespan/minimalloc-benchmarks/triton/csv-out"
-makespan_file="/workspace/results/time-makespan/minimalloc-benchmarks/triton/makespan/makespan.csv"
+makespan_file="/workspace/results/time-makespan/minimalloc-benchmarks/triton/makespan/makespan.txt"
 > $makespan_file
 
 adapt_bin="/workspace/idealloc/adapt"
@@ -66,7 +66,7 @@ do
 done
 
 outfiles="/workspace/results/time-makespan/mindspore-benchmarks/triton/csv-out"
-makespan_file="/workspace/results/time-makespan/mindspore-benchmarks/triton/makespan/makespan.csv"
+makespan_file="/workspace/results/time-makespan/mindspore-benchmarks/triton/makespan/makespan.txt"
 > $makespan_file
 
 for file in $outfiles/*.csv; do

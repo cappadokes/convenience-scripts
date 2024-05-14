@@ -18,7 +18,7 @@ do
             ;;
     esac
 
-    makespan_file="/workspace/results/time-makespan/$dir/idealloc-r1/makespan/makespan.csv"
+    makespan_file="/workspace/results/time-makespan/$dir/idealloc-r1/makespan/makespan.txt"
     > $makespan_file
 
     time_file="/workspace/results/time-makespan/$dir/idealloc-r1/time/time.csv"
@@ -52,7 +52,7 @@ do
         echo "" >> $time_file
     done
 
-    makespan_file="/workspace/results/time-makespan/$dir/idealloc-r21/makespan/makespan.csv"
+    makespan_file="/workspace/results/time-makespan/$dir/idealloc-r21/makespan/makespan.txt"
     > $makespan_file
 
     time_file="/workspace/results/time-makespan/$dir/idealloc-r21/time/time.csv"

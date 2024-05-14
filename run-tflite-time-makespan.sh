@@ -30,7 +30,7 @@ for algo in "${algorithms[@]}"; do
     done
 
     outfiles="/workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo/csv-out"
-    makespan_file="/workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo/makespan/makespan.csv"
+    makespan_file="/workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo/makespan/makespan.txt"
     > $makespan_file
 
     for file in $outfiles/*.csv; do
@@ -69,7 +69,7 @@ for algo in "${algorithms[@]}"; do
     done
 
     outfiles="/workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo/csv-out"
-    makespan_file="/workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo/makespan/makespan.csv"
+    makespan_file="/workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo/makespan/makespan.txt"
     > $makespan_file
 
     for file in $outfiles/*.csv; do

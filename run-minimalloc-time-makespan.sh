@@ -39,7 +39,7 @@ do
 done
 
 outfiles="/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out"
-makespan_file="/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/makespan/makespan.csv"
+makespan_file="/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/makespan/makespan.txt"
 > $makespan_file
 
 adapt_bin="/workspace/idealloc/adapt"
@@ -59,11 +59,10 @@ done
 
 idealloc_res=()
 
-while IFS=',' read -ra line; do
-    for num in "${line[@]}"; do
-        idealloc_res+=("$num")
-    done
-done < /workspace/results/time-makespan/mindspore-benchmarks/idealloc-r21/makespan/makespan.csv
+while IFS= read -r line; do
+    number=$(grep -oE '[0-9]+' <<< "$line")
+    numbers+=("$number")
+done < /workspace/results/time-makespan/mindspore-benchmarks/idealloc-r21/makespan/makespan.txt
 
 time_file="/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/time/time.csv"
 > $time_file
@@ -108,7 +107,7 @@ do
 done
 
 outfiles="/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out"
-makespan_file="/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/makespan/makespan.csv"
+makespan_file="/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/makespan/makespan.txt"
 > $makespan_file
 
 for file in $outfiles/*.csv; do
