@@ -24,7 +24,7 @@ do
     time_file="/workspace/results/time-makespan/$dir/idealloc-r1/time/time.csv"
     > $time_file
 
-    for ((i=1; i<=20; i++)); do
+    for ((i=1; i<=2; i++)); do
         echo "$i out of 20 runs"
         > $makespan_file
         for file in $tensor_sets/*.csv; do
@@ -55,7 +55,7 @@ do
     time_file="/workspace/results/time-makespan/$dir/idealloc-r21/time/time.csv"
     > $time_file
 
-    for ((i=1; i<=20; i++)); do
+    for ((i=1; i<=2; i++)); do
         echo "$i out of 20 runs"
         > $makespan_file
         for file in $tensor_sets/*.csv; do

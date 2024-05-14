@@ -9,7 +9,7 @@ for algo in "${algorithms[@]}"; do
     time_file="/workspace/results/time-makespan/minimalloc-benchmarks/tflite-$algo/time/time.csv"
     > $time_file
 
-    for ((i=1; i<=20; i++))
+    for ((i=1; i<=2; i++))
     do  
         echo "$i out of 20 runs"
         for input in /workspace/benchmarks/minimalloc/*.csv; do
@@ -46,7 +46,7 @@ for algo in "${algorithms[@]}"; do
     time_file="/workspace/results/time-makespan/mindspore-benchmarks/tflite-$algo/time/time.csv"
     > $time_file
 
-    for ((i=1; i<=20; i++))
+    for ((i=1; i<=2; i++))
     do  
         echo "$i out of 20 runs"
         for input in /workspace/benchmarks/mindspore/*.csv; do

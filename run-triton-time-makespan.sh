@@ -3,7 +3,7 @@
 time_file="/workspace/results/time-makespan/minimalloc-benchmarks/triton/time/time.csv"
 > $time_file
 
-for ((i=1; i<=20; i++))
+for ((i=1; i<=2; i++))
 do  
     echo "$i out of 20 runs"
     for input in /workspace/benchmarks/minimalloc/*.csv; do
@@ -43,7 +43,7 @@ done
 time_file="/workspace/results/time-makespan/mindspore-benchmarks/triton/time/time.csv"
 > $time_file
 
-for ((i=1; i<=20; i++))
+for ((i=1; i<=2; i++))
 do  
     echo "$i out of 20 runs"
     for input in /workspace/benchmarks/mindspore/*.csv; do

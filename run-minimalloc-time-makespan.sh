@@ -3,7 +3,7 @@
 time_file="/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/time/time.csv"
 > $time_file
 
-for ((i=1; i<=20; i++))
+for ((i=1; i<=2; i++))
 do
     echo "$i out of 20 runs"
     for input in /workspace/benchmarks/minimalloc/*.csv; do
@@ -69,7 +69,7 @@ done < /workspace/results/time-makespan/mindspore-benchmarks/idealloc-r21/makesp
 time_file="/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/time/time.csv"
 > $time_file
 
-for ((i=1; i<=20; i++))
+for ((i=1; i<=2; i++))
 do
     index=0
     for input in /workspace/benchmarks/mindspore/*.csv; do
