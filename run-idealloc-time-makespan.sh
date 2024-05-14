@@ -26,7 +26,7 @@ do
 
     echo -e "\n\nRunning Idealloc (1 iteration) for $dir\n\n"
 
-    for ((i=1; i<=2; i++)); do
+    for ((i=1; i<=20; i++)); do
         echo "$i out of 20 runs"
         > $makespan_file
         for file in $tensor_sets/*.csv; do
@@ -60,7 +60,7 @@ do
 
     echo -e "\n\nRunning Idealloc (21 iterations) for $dir\n\n"
 
-    for ((i=1; i<=2; i++)); do
+    for ((i=1; i<=20; i++)); do
         echo "$i out of 20 runs"
         > $makespan_file
         for file in $tensor_sets/*.csv; do

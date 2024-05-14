@@ -5,7 +5,7 @@ time_file="/workspace/results/time-makespan/minimalloc-benchmarks/triton/time/ti
 
 echo -e "\n\nRunning Triton for minimalloc-benchmarks\n\n"
 
-for ((i=1; i<=2; i++))
+for ((i=1; i<=20; i++))
 do  
     echo "$i out of 20 runs"
     for input in /workspace/benchmarks/minimalloc/*.csv; do
@@ -49,7 +49,7 @@ time_file="/workspace/results/time-makespan/mindspore-benchmarks/triton/time/tim
 
 echo -e "\n\nRunning Triton for mindspore-benchmarks\n\n"
 
-for ((i=1; i<=2; i++))
+for ((i=1; i<=20; i++))
 do  
     echo "$i out of 20 runs"
     for input in /workspace/benchmarks/mindspore/*.csv; do
