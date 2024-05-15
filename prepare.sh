@@ -49,6 +49,8 @@ mkdir /workspace/results/capacity-experiment
 mkdir /workspace/results/capacity-experiment/minimalloc-benchmarks
 mkdir /workspace/results/capacity-experiment/mindspore-benchmarks
 
+benchmark_types=("minimalloc" "mindspore")
+
 for benchmark_type in "${benchmark_types[@]}"
 do
     packers=("minimalloc" "tvm-hillclimb")
