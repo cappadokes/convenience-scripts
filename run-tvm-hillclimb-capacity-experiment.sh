@@ -1,6 +1,7 @@
 load_file="/workspace/results/capacity-experiment/loads/minimalloc-loads.csv"
 loads=()
 while IFS=, read -r number; do
+    echo $number
     loads+=("$number")
 done < "$load_file"
 printf '%s\n' "${loads[@]}"
