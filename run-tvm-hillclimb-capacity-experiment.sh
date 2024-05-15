@@ -8,7 +8,8 @@ done < /workspace/results/capacity-experiment/loads/mindspore-loads.csv
 
 for num in "${loads[@]}"; do
     result=$(echo "scale=2; $num * 125 / 100" | bc)
-    echo "Original number: $num, Result: $result"
+    ceiling=$(awk -v num="$result" 'BEGIN { printf("%.0f\n", num) }')
+    echo "Original number: $num, Result: $result, Ceiling: $ceiling"
 done
 
 # time_file="/workspace/results/capactiy-experiment/minimalloc-benchmarks/tvm-hillclimb/time/time.csv"
