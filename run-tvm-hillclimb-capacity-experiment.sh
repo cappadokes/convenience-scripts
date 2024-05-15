@@ -85,7 +85,7 @@ for i in {0..2}; do
         percentage=${capacities[$i]}
         load=${loads[$index]}
 
-        result=$(echo "scale=4; $load * $percentage / 100" | bc)
+        result=$(echo "scale=2; $load * $percentage / 100" | bc)
         capacity=$(echo "$result" | awk '{print ($0-int($0)>0)?int($0)+1:int($0)}')
 
         echo "$(basename "$input") - $percentage - $load - $result - $capacity"
