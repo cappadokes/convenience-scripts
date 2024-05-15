@@ -2,7 +2,7 @@
 
 loads=()
 
-while read -r _ number; do
+while read -r number; do
     loads+=("$number")
 done < /workspace/results/capacity-experiment/loads/minimalloc-loads.csv
 
