@@ -8,7 +8,7 @@ done < /workspace/results/capacity-experiment/loads/mindspore-loads.csv
 
 for num in "${loads[@]}"; do
     result=$(echo "scale=2; $num * 125 / 100" | bc)
-    ceiling=$(awk -v num="$result" 'BEGIN { printf("%.0f\n", num) }')
+    ceiling=$(echo "$result" | awk '{print ($0-int($0)>0)?int($0)+1:int($0)}')
     echo "Original number: $num, Result: $result, Ceiling: $ceiling"
 done
 
