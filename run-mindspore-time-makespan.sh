@@ -27,6 +27,10 @@ for benchmark_type in "${benchmark_types[@]}"; do
                 time=$(python3 /workspace/mindspore-wrapper/extract-time.py)
                 echo -n "$time," >> "$time_file"
             fi
+
+            if [ -f "/workspace/mindspore-wrapper/output.txt" ]; then
+                rm /workspace/mindspore-wrapper/output.txt
+            fi
         done
         echo "" >> $time_file
     done
