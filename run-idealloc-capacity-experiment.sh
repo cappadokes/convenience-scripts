@@ -53,22 +53,23 @@ for idealloc_version in "${idealloc_versions[@]}"; do
         index=0
         for input in /workspace/benchmarks/minimalloc/*.csv; do
             capacity=${capacities[$index]}
-            $adapt_bin $input
-            filename_no_ext=$(basename -- "$input" .csv)
-            output=$(timeout 3m $coreba_bin --capacity=$capacity $flags "$filename_no_ext.plc")
-            ret=$?
-            makespan=$(echo "$output" | grep -oE 'Improved! Current best = [0-9]+' | tail -n 1 | awk '{print $5}')
-            time=$(echo "$output" | grep -oE 'Allocation time was [0-9]+' | awk '{print $4}')
+            # $adapt_bin $input
+            # filename_no_ext=$(basename -- "$input" .csv)
+            # output=$(timeout 3m $coreba_bin --capacity=$capacity $flags "$filename_no_ext.plc")
+            # ret=$?
+            # makespan=$(echo "$output" | grep -oE 'Improved! Current best = [0-9]+' | tail -n 1 | awk '{print $5}')
+            # time=$(echo "$output" | grep -oE 'Allocation time was [0-9]+' | awk '{print $4}')
 
-            if [ $ret -eq 124 ]; then
-                echo -n "Failed," >> "$time_file"
-            else
-                echo "$filename_no_ext: $makespan" >> "$makespan_file"
-                echo -n "$time," >> "$time_file"
-            fi
+            # if [ $ret -eq 124 ]; then
+            #     echo -n "Failed," >> "$time_file"
+            # else
+            #     echo "$filename_no_ext: $makespan" >> "$makespan_file"
+            #     echo -n "$time," >> "$time_file"
+            # fi
             
-            rm "$filename_no_ext.plc"
-            rm optimized*
+            # rm "$filename_no_ext.plc"
+            # rm optimized*
+            echo "Running $idealloc_version with capacity $capacity for input $(basename -- "$input" .csv)"
             ((index ++))
         done
         echo "" >> $time_file
@@ -110,22 +111,23 @@ for idealloc_version in "${idealloc_versions[@]}"; do
             result=$(echo "scale=2; $load * $percentage / 100" | bc)
             capacity=$(echo "$result" | awk '{print ($0-int($0)>0)?int($0)+1:int($0)}')
 
-            $adapt_bin $input
-            filename_no_ext=$(basename -- "$input" .csv)
-            output=$(timeout 3m $coreba_bin --capacity=$capacity $flags "$filename_no_ext.plc")
-            ret=$?
-            makespan=$(echo "$output" | grep -oE 'Improved! Current best = [0-9]+' | tail -n 1 | awk '{print $5}')
-            time=$(echo "$output" | grep -oE 'Allocation time was [0-9]+' | awk '{print $4}')
+            # $adapt_bin $input
+            # filename_no_ext=$(basename -- "$input" .csv)
+            # output=$(timeout 3m $coreba_bin --capacity=$capacity $flags "$filename_no_ext.plc")
+            # ret=$?
+            # makespan=$(echo "$output" | grep -oE 'Improved! Current best = [0-9]+' | tail -n 1 | awk '{print $5}')
+            # time=$(echo "$output" | grep -oE 'Allocation time was [0-9]+' | awk '{print $4}')
 
-            if [ $ret -eq 124 ]; then
-                echo -n "Failed," >> "$time_file"
-            else
-                echo "$filename_no_ext: $makespan" >> "$makespan_file"
-                echo -n "$time," >> "$time_file"
-            fi
+            # if [ $ret -eq 124 ]; then
+            #     echo -n "Failed," >> "$time_file"
+            # else
+            #     echo "$filename_no_ext: $makespan" >> "$makespan_file"
+            #     echo -n "$time," >> "$time_file"
+            # fi
             
-            rm "$filename_no_ext.plc"
-            rm optimized*
+            # rm "$filename_no_ext.plc"
+            # rm optimized*
+            echo "Running $idealloc_version with capacity $capacity for input $(basename -- "$input" .csv)"
         done
         echo "" >> $time_file
     done
