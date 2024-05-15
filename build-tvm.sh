@@ -38,3 +38,7 @@ git clone https://github.com/dmlc/dlpack.git
 cd /workspace/tvm-wrapper/dlpack
 cmake . -G Ninja
 ninja -j $num_jobs
+
+cd /workspace/tvm-wrapper
+cmake . -G Ninja
+ninja -j $num_jobs
