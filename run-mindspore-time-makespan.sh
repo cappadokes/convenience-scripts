@@ -16,20 +16,16 @@ for benchmark_type in "${benchmark_types[@]}"; do
         for input in /workspace/benchmarks/$benchmark_type/*.csv; do
             base_filename=$(basename "$input")
             filename_no_ext="${base_filename%.*}"
-            BASE_PATH=/workspace/results/time-makespan/$benchmark_type-benchmarks/mindspore TRACE_NAME=$filename_no_ext timeout 3m $bin $input 2>&1 > /workspace/mindspore-wrapper/output.txt
+            output=$(BASE_PATH=/workspace/results/time-makespan/$benchmark_type-benchmarks/mindspore TRACE_NAME=$filename_no_ext timeout 3m $bin $input 2>&1)
             ret=$?
+            time=$(echo $output | grep "Time elapsed" | awk '{print $4}')
             if [ $ret -eq 124 ]; then
                 echo -n "Failed," >> $time_file
                 if [ -f "/workspace/results/time-makespan/$benchmark_type-benchmarks/mindspore/csv-out/$filename_no_ext-out.csv" ]; then
                     rm /workspace/results/time-makespan/$benchmark_type-benchmarks/mindspore/csv-out/$filename_no_ext-out.csv
                 fi
             else
-                time=$(python3 /workspace/mindspore-wrapper/extract-time.py)
                 echo -n "$time," >> "$time_file"
-            fi
-
-            if [ -f "/workspace/mindspore-wrapper/output.txt" ]; then
-                rm /workspace/mindspore-wrapper/output.txt
             fi
         done
         echo "" >> $time_file
