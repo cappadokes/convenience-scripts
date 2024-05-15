@@ -77,7 +77,7 @@ echo -e "\n\nRunning TVM-hillclimb for mindspore-benchmarks (capacity experiment
 
 percentages_resnet50=("100.5" "100.75" "101")
 percentages_tiny_bert=("103.5" "105" "106.5")
-inputs=("/workspace/benchmarks/minimalloc/resnet50.csv" "/workspace/benchmarks/minimalloc/tiny_bert.csv")
+inputs=("/workspace/benchmarks/mindspore/resnet50.csv" "/workspace/benchmarks/mindspore/tiny_bert.csv")
 
 for i in {0..2}; do
     index=0
