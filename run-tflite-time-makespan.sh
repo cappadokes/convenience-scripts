@@ -11,7 +11,7 @@ for algo in "${algorithms[@]}"; do
         time_file="/workspace/results/time-makespan/$benchmark_type-benchmarks/tflite-$algo/time/time.csv"
         > $time_file
 
-        echo -e "\n\nRunning TFLite-$algo for $benchmark_type-benchmarks\n\n"
+        echo -e "\n\nRunning TFLite-$algo for $benchmark_type-benchmarks (time-makespan data)\n\n"
 
         for ((i=1; i<=20; i++)) do  
             echo "$i out of 20 runs"

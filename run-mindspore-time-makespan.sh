@@ -9,7 +9,7 @@ for benchmark_type in "${benchmark_types[@]}"; do
     time_file="/workspace/results/time-makespan/$benchmark_type-benchmarks/mindspore/time/time.csv"
     > $time_file
 
-    echo -e "\n\nRunning Mindspore for $benchmark_type-benchmarks\n\n"
+    echo -e "\n\nRunning Mindspore for $benchmark_type-benchmarks (time-makespan data)\n\n"
 
     for ((i=1; i<=20; i++)) do  
         echo "$i out of 20 runs"

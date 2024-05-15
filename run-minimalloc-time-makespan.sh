@@ -3,7 +3,7 @@
 time_file="/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/time/time.csv"
 > $time_file
 
-echo -e "\n\nRunning Minimalloc for minimalloc-benchmarks\n\n"
+echo -e "\n\nRunning Minimalloc for minimalloc-benchmarks (time-makespan data)\n\n"
 
 for ((i=1; i<=20; i++)) do
     echo "$i out of 20 runs"
@@ -61,7 +61,7 @@ done < /workspace/results/time-makespan/mindspore-benchmarks/idealloc-r21/makesp
 time_file="/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/time/time.csv"
 > $time_file
 
-echo -e "\n\nRunning Minimalloc for mindspore-benchmarks\n\n"
+echo -e "\n\nRunning Minimalloc for mindspore-benchmarks (time-makespan data)\n\n"
 
 for ((i=1; i<=20; i++)) do
     echo "$i out of 20 runs"

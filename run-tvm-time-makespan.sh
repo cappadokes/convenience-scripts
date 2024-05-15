@@ -11,7 +11,7 @@ for algo in "${algorithms[@]}"; do
         time_file="/workspace/results/time-makespan/$benchmark_type-benchmarks/tvm-$algo/time/time.csv"
         > $time_file
 
-        echo -e "\n\nRunning TVM-$algo for $benchmark_type-benchmarks\n\n"
+        echo -e "\n\nRunning TVM-$algo for $benchmark_type-benchmarks (time-makespan data)\n\n"
 
         for ((i=1; i<=20; i++)) do  
             echo "$i out of 20 runs"
@@ -54,7 +54,7 @@ done
 time_file="/workspace/results/time-makespan/minimalloc-benchmarks/tvm-hillclimb/time/time.csv"
 > $time_file
 
-echo -e "\n\nRunning TVM-hillclimb for minimalloc-benchmarks\n\n"
+echo -e "\n\nRunning TVM-hillclimb for minimalloc-benchmarks (time-makespan data)\n\n"
 
 for ((i=1; i<=20; i++)) do  
     echo "$i out of 20 runs"
@@ -94,7 +94,7 @@ done
 time_file="/workspace/results/time-makespan/mindspore-benchmarks/tvm-hillclimb/time/time.csv"
 > $time_file
 
-echo -e "\n\nRunning TVM-hillclimb for mindspore-benchmarks\n\n"
+echo -e "\n\nRunning TVM-hillclimb for mindspore-benchmarks (time-makespan data)\n\n"
 
 idealloc_res=()
 

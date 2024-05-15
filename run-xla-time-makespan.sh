@@ -16,7 +16,7 @@ for packer in "${packers[@]}"; do
         time_file="/workspace/results/time-makespan/$benchmark_type-benchmarks/$packer/time/time.csv"
         > $time_file
 
-        echo -e "\n\nRunning XLA ($packer) for $benchmark_type-benchmarks\n\n"
+        echo -e "\n\nRunning XLA ($packer) for $benchmark_type-benchmarks (time-makespan data)\n\n"
 
         for ((i=1; i<=20; i++)) do  
             echo "$i out of 20 runs"
