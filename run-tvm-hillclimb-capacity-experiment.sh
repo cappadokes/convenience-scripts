@@ -1,5 +1,7 @@
 #!/bin/bash
 
+adapt_bin="/workspace/idealloc/adapt"
+report_bin="/workspace/idealloc/report"
 bin="/workspace/tvm-wrapper/tvm_packer"
 
 loads=()
