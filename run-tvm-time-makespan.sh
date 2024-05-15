@@ -15,7 +15,7 @@ for algo in "${algorithms[@]}"; do
 
         for ((i=1; i<=20; i++)) do  
             echo "$i out of 20 runs"
-            for input in /workspace/benchmarks/presorted/$benchmark_type/*.csv; do
+            for input in /workspace/benchmarks/$benchmark_type/*.csv; do
                 base_filename=$(basename "$input")
                 filename_no_ext="${base_filename%.*}"
                 time=$(BASE_PATH=/workspace/results/time-makespan/$benchmark_type-benchmarks/tvm-$algo TRACE_NAME=$filename_no_ext timeout 3m $bin $input $algo 1)
@@ -58,7 +58,7 @@ echo -e "\n\nRunning TVM-hillclimb for minimalloc-benchmarks\n\n"
 
 for ((i=1; i<=20; i++)) do  
     echo "$i out of 20 runs"
-    for input in /workspace/benchmarks/presorted/minimalloc/*.csv; do
+    for input in /workspace/benchmarks/minimalloc/*.csv; do
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
         time=$(BASE_PATH=/workspace/results/time-makespan/minimalloc-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext timeout 3m $bin $input hillclimb 1048576)
@@ -105,7 +105,7 @@ done < /workspace/results/time-makespan/mindspore-benchmarks/idealloc-r21/makesp
 for ((i=1; i<=20; i++)) do  
     echo "$i out of 20 runs"
     index=0
-    for input in /workspace/benchmarks/presorted/mindspore/*.csv; do
+    for input in /workspace/benchmarks/mindspore/*.csv; do
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
         capacity=$(( ${idealloc_res[$index]} * 4096 ))
