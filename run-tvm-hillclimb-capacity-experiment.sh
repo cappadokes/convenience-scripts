@@ -1,6 +1,6 @@
-csv_file="/workspace/results/capacity-experiment/loads/minimalloc-loads.csv"
-mapfile -t loads < "$csv_file"
-printf '%s\n' "${numbers_array[@]}"
+load_file="/workspace/results/capacity-experiment/loads/minimalloc-loads.csv"
+mapfile -t loads < "$load_file"
+printf '%s\n' "${loads[@]}"
 
 # time_file="/workspace/results/capactiy-experiment/minimalloc-benchmarks/tvm-hillclimb/time/time.csv"
 # > $time_file
