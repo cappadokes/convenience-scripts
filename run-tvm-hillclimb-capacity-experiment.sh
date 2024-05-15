@@ -1,14 +1,12 @@
 #!/bin/bash
 
-loads=()
+idealloc_res=()
 
-while IFS=',' read -ra line; do
-    for num in "${line[@]}"; do
-        loads+=("$num")
-    done
-done < /workspace/results/capacity-experiment/loads/minimalloc-loads.csv
+while read -r _ number; do
+    idealloc_res+=("$number")
+done < /workspace/results/time-makespan/mindspore-benchmarks/idealloc-r21/makespan/makespan.txt
 
-printf '%s\n' "${loads[@]}"
+printf '%s\n' "${idealloc_res[@]}"
 
 # time_file="/workspace/results/capactiy-experiment/minimalloc-benchmarks/tvm-hillclimb/time/time.csv"
 # > $time_file
