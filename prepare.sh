@@ -46,6 +46,7 @@ do
 done
 
 mkdir /workspace/results/capacity-experiment
+mkdir /workspace/results/capacity-experiment/loads
 mkdir /workspace/results/capacity-experiment/minimalloc-benchmarks
 mkdir /workspace/results/capacity-experiment/mindspore-benchmarks
 

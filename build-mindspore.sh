@@ -22,3 +22,5 @@ cd /workspace/mindspore-wrapper
 conan install . --build=missing
 cmake . -G Ninja
 ninja -j $num_jobs
+
+cd /workspace

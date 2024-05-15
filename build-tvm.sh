@@ -42,3 +42,5 @@ ninja -j $num_jobs
 cd /workspace/tvm-wrapper
 cmake . -G Ninja
 ninja -j $num_jobs
+
+cd /workspace
