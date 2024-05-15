@@ -13,7 +13,7 @@ for file in $output_dir/*.csv; do
         filename_no_ext=$(basename -- "$file" .csv)
         output=$($report_bin "$filename_no_ext.plc" | grep "Max load:" | grep at)
         load=$(echo "$output" | awk '{print $3}')
-        echo "$load," >> "$load_file"
+        echo -n "$load," >> "$load_file"
         rm "$filename_no_ext.plc"
         rm -rf '"'$filename_no_ext'"_m_62'
     fi
