@@ -4,12 +4,6 @@ adapt_bin="/workspace/idealloc/adapt"
 report_bin="/workspace/idealloc/report"
 coreba_bin="/workspace/idealloc/coreba"
 
-loads=()
-
-while read -r number; do
-    loads+=("$number")
-done < /workspace/results/capacity-experiment/loads/minimalloc-loads.csv
-
 idealloc_versions=("idealloc-r1" "idealloc-montecarlo-0" "idealloc-montecarlo-0.1" "idealloc-montecarlo-0.4")
 
 for idealloc_version in "${idealloc_versions[@]}"; do
@@ -28,6 +22,12 @@ for idealloc_version in "${idealloc_versions[@]}"; do
             flags="MCTS:UCT\(0.4\)"
             ;;
     esac
+
+    loads=()
+
+    while read -r number; do
+        loads+=("$number")
+    done < /workspace/results/capacity-experiment/loads/minimalloc-loads.csv
 
     time_file="/workspace/results/capacity-experiment/minimalloc-benchmarks/$idealloc_version/time/time.csv"
     > $time_file
