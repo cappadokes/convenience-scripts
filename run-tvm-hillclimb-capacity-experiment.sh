@@ -80,10 +80,19 @@ percentages_tiny_bert=("103.5" "105" "106.5")
 inputs=("/workspace/benchmarks/mindspore/resnet50.csv" "/workspace/benchmarks/mindspore/tiny_bert.csv")
 
 for i in {0..2}; do
-    index=0
     for input in "${inputs[@]}"; do
-        percentage=${capacities[$i]}
-        load=${loads[$index]}
+        percentage=""
+        load=""
+        case $input in
+            "/workspace/benchmarks/mindspore/resnet50.csv")
+                load=${loads[0]}
+                percentage=${percentages_resnet50[$i]}
+                ;;
+            "/workspace/benchmarks/mindspore/tiny_bert.csv")
+                load=${loads[1]}
+                percentage=${percentages_tiny_bert[$i]}
+                ;;
+        esac
 
         result=$(echo "scale=2; $load * $percentage / 100" | bc)
         capacity=$(echo "$result" | awk '{print ($0-int($0)>0)?int($0)+1:int($0)}')
@@ -102,7 +111,6 @@ for i in {0..2}; do
         # else
         #     echo -n "$time," >> "$time_file"
         # fi
-        ((index++))
     done
     echo "" >> $time_file
 done
