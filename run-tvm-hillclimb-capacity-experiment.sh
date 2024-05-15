@@ -3,6 +3,7 @@
 load_file="/workspace/results/capacity-experiment/loads/minimalloc-loads.csv"
 loads=()
 while IFS=',' read -ra line; do
+    echo $line
     for num in "${line[@]}"; do
         loads+=("$num")
     done
