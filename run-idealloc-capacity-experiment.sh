@@ -2,7 +2,7 @@
 
 adapt_bin="/workspace/idealloc/adapt"
 report_bin="/workspace/idealloc/report"
-coreba_bin="/workspace/idealloc/report/coreba"
+coreba_bin="/workspace/idealloc/coreba"
 
 loads=()
 
