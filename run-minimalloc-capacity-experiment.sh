@@ -107,14 +107,14 @@ for i in {0..2}; do
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
         new_filename="${filename_no_ext}-$percentage-out.csv"
-        time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/capacity-experiment/minimalloc-benchmarks/minimalloc/csv-out/$new_filename 2>&1)
+        time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/csv-out/$new_filename 2>&1)
 
         if [ $? -eq 124 ]; then
-            time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/capacity-experiment/minimalloc-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false 2>&1)
+            time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false 2>&1)
             if [ $? -eq 124 ]; then
                 echo -n "Failed," >> $time_file
-                if [ -f "/workspace/results/capacity-experiment/minimalloc-benchmarks/minimalloc/csv-out/$new_filename" ]; then
-                    rm /workspace/results/capacity-experiment/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
+                if [ -f "/workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/csv-out/$new_filename" ]; then
+                    rm /workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/csv-out/$new_filename
                 fi
             else
                 time=$(awk -v seconds="$time" 'BEGIN { printf "%.0f", seconds * 1000000 }')
