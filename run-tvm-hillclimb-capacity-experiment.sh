@@ -1,9 +1,10 @@
 load_file="/workspace/results/capacity-experiment/loads/minimalloc-loads.csv"
 loads=()
-while IFS=, read -r number; do
-    echo $number
-    loads+=("$number")
-done < "$load_file"
+while IFS=',' read -ra line; do
+    for num in "${line[@]}"; do
+        loads+=("$num")
+    done
+done < $load_file
 printf '%s\n' "${loads[@]}"
 
 # time_file="/workspace/results/capactiy-experiment/minimalloc-benchmarks/tvm-hillclimb/time/time.csv"
