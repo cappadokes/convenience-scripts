@@ -71,68 +71,76 @@ for file in $outfiles/*.csv; do
     fi
 done
 
-# loads=()
+loads=()
 
-# while read -r number; do
-#     loads+=("$number")
-# done < /workspace/results/capacity-experiment/loads/mindspore-loads.csv
+while read -r number; do
+    loads+=("$number")
+done < /workspace/results/capacity-experiment/loads/mindspore-loads.csv
 
-# time_file="/workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/time/time.csv"
-# > $time_file
+time_file="/workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/time/time.csv"
+> $time_file
 
-# echo -e "\n\nRunning TVM-hillclimb for mindspore-benchmarks (capacity experiment data)\n\n"
+echo -e "\n\nRunning Minimalloc for mindspore-benchmarks (capacity experiment data)\n\n"
 
-# percentages_resnet50=("100.5" "100.75" "101")
-# percentages_tiny_bert=("103.5" "105" "106.5")
-# inputs=("/workspace/benchmarks/mindspore/resnet50.csv" "/workspace/benchmarks/mindspore/tiny_bert.csv")
+percentages_resnet50=("100.5" "100.75" "101")
+percentages_tiny_bert=("103.5" "105" "106.5")
+inputs=("/workspace/benchmarks/mindspore/resnet50.csv" "/workspace/benchmarks/mindspore/tiny_bert.csv")
 
-# for i in {0..2}; do
-#     for input in "${inputs[@]}"; do
-#         percentage=""
-#         load=""
-#         case $input in
-#             "/workspace/benchmarks/mindspore/resnet50.csv")
-#                 load=${loads[0]}
-#                 percentage=${percentages_resnet50[$i]}
-#                 ;;
-#             "/workspace/benchmarks/mindspore/tiny_bert.csv")
-#                 load=${loads[1]}
-#                 percentage=${percentages_tiny_bert[$i]}
-#                 ;;
-#         esac
+for i in {0..2}; do
+    for input in "${inputs[@]}"; do
+        percentage=""
+        load=""
+        case $input in
+            "/workspace/benchmarks/mindspore/resnet50.csv")
+                load=${loads[0]}
+                percentage=${percentages_resnet50[$i]}
+                ;;
+            "/workspace/benchmarks/mindspore/tiny_bert.csv")
+                load=${loads[1]}
+                percentage=${percentages_tiny_bert[$i]}
+                ;;
+        esac
 
-#         result=$(echo "scale=2; $load * $percentage / 100" | bc)
-#         capacity=$(echo "$result" | awk '{print ($0-int($0)>0)?int($0)+1:int($0)}')
+        result=$(echo "scale=2; $load * $percentage / 100" | bc)
+        capacity=$(echo "$result" | awk '{print ($0-int($0)>0)?int($0)+1:int($0)}')
 
-#         base_filename=$(basename "$input")
-#         filename_no_ext="${base_filename%.*}"
-#         time=$(BASE_PATH=/workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc TRACE_NAME=$filename_no_ext-$percentage timeout 3m $bin $input hillclimb $capacity)
-#         ret=$?
-#         if [ $ret -eq 124 ]; then
-#             echo -n "Failed," >> $time_file
-#             if [ -f "/workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/csv-out/$filename_no_ext-$percentage-out.csv" ]; then
-#                 rm /workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/csv-out/$filename_no_ext-$percentage-out.csv
-#             fi
-#         else
-#             echo -n "$time," >> "$time_file"
-#         fi
-#     done
-#     echo "" >> $time_file
-# done
+        base_filename=$(basename "$input")
+        filename_no_ext="${base_filename%.*}"
+        new_filename="${filename_no_ext}-$percentage-out.csv"
+        time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/capacity-experiment/minimalloc-benchmarks/minimalloc/csv-out/$new_filename 2>&1)
 
-# outfiles="/workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/csv-out"
-# makespan_file="/workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/makespan/makespan.txt"
-# > $makespan_file
+        if [ $? -eq 124 ]; then
+            time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/capacity-experiment/minimalloc-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false 2>&1)
+            if [ $? -eq 124 ]; then
+                echo -n "Failed," >> $time_file
+                if [ -f "/workspace/results/capacity-experiment/minimalloc-benchmarks/minimalloc/csv-out/$new_filename" ]; then
+                    rm /workspace/results/capacity-experiment/minimalloc-benchmarks/minimalloc/csv-out/$new_filename
+                fi
+            else
+                time=$(awk -v seconds="$time" 'BEGIN { printf "%.0f", seconds * 1000000 }')
+                echo -n "$time," >> $time_file
+            fi
+        else
+            time=$(awk -v seconds="$time" 'BEGIN { printf "%.0f", seconds * 1000000 }')
+            echo -n "$time," >> $time_file
+        fi
+    done
+    echo "" >> $time_file
+done
 
-# for file in $outfiles/*.csv; do
-#     if [ -f "$file" ]; then
-#         $adapt_bin $file
-#         filename_no_ext=$(basename -- "$file" .csv)
-#         output=$($report_bin "$filename_no_ext.plc" | grep Makespan | grep pages)
-#         makespan=$(echo "$output" | awk '{print $NF}')
-#         echo "$filename_no_ext: $makespan" >> "$makespan_file"
-#         rm "$filename_no_ext.plc"
-#         rm -rf '"'$filename_no_ext'"_m_62'
-#     fi
-# done
+outfiles="/workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/csv-out"
+makespan_file="/workspace/results/capacity-experiment/mindspore-benchmarks/minimalloc/makespan/makespan.txt"
+> $makespan_file
+
+for file in $outfiles/*.csv; do
+    if [ -f "$file" ]; then
+        $adapt_bin $file
+        filename_no_ext=$(basename -- "$file" .csv)
+        output=$($report_bin "$filename_no_ext.plc" | grep Makespan | grep pages)
+        makespan=$(echo "$output" | awk '{print $NF}')
+        echo "$filename_no_ext: $makespan" >> "$makespan_file"
+        rm "$filename_no_ext.plc"
+        rm -rf '"'$filename_no_ext'"_m_62'
+    fi
+done
 
