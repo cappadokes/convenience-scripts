@@ -4,7 +4,7 @@ loads=()
 
 while read -r number; do
     loads+=("$number")
-done < /workspace/results/capacity-experiment/loads/minimalloc-loads.csv
+done < /workspace/results/capacity-experiment/loads/mindspore-loads.csv
 
 for num in "${loads[@]}"; do
     result=$(echo "scale=2; $num * 125 / 100" | bc)
