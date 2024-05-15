@@ -29,9 +29,6 @@ for percentage in "${percentages[@]}"; do
     index=0
     for input in /workspace/benchmarks/minimalloc/*.csv; do
         capacity=${capacities[$index]}
-
-        echo "Running with percentage $percentage and capacity $capacity"
-
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
         time=$(BASE_PATH=/workspace/results/capacity-experiment/minimalloc-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext-$percentage timeout 3m $bin $input hillclimb $capacity)
