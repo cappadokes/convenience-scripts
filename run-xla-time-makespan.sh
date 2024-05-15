@@ -57,3 +57,5 @@ for packer in "${packers[@]}"; do
         done
     done
 done
+
+python3 /workspace/convenience-scripts/sort-results-xla-heap.py
