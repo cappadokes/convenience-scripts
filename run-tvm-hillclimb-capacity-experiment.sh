@@ -70,7 +70,7 @@ while read -r number; do
     loads+=("$number")
 done < /workspace/results/capacity-experiment/loads/mindspore-loads.csv
 
-time_file="/workspace/results/capacity-experiment/minimalloc-benchmarks/tvm-hillclimb/time/time.csv"
+time_file="/workspace/results/capacity-experiment/mindspore-benchmarks/tvm-hillclimb/time/time.csv"
 > $time_file
 
 echo -e "\n\nRunning TVM-hillclimb for mindspore-benchmarks (capacity experiment data)\n\n"
@@ -99,12 +99,12 @@ for i in {0..2}; do
 
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
-        time=$(BASE_PATH=/workspace/results/capacity-experiment/minimalloc-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext-$percentage timeout 3m $bin $input hillclimb $capacity)
+        time=$(BASE_PATH=/workspace/results/capacity-experiment/mindspore-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext-$percentage timeout 3m $bin $input hillclimb $capacity)
         ret=$?
         if [ $ret -eq 124 ]; then
             echo -n "Failed," >> $time_file
-            if [ -f "/workspace/results/capacity-experiment/minimalloc-benchmarks/tvm-hillclimb/csv-out/$filename_no_ext-$percentage-out.csv" ]; then
-                rm /workspace/results/capacity-experiment/minimalloc-benchmarks/tvm-hillclimb/csv-out/$filename_no_ext-$percentage-out.csv
+            if [ -f "/workspace/results/capacity-experiment/mindspore-benchmarks/tvm-hillclimb/csv-out/$filename_no_ext-$percentage-out.csv" ]; then
+                rm /workspace/results/capacity-experiment/mindspore-benchmarks/tvm-hillclimb/csv-out/$filename_no_ext-$percentage-out.csv
             fi
         else
             echo -n "$time," >> "$time_file"
@@ -113,8 +113,8 @@ for i in {0..2}; do
     echo "" >> $time_file
 done
 
-outfiles="/workspace/results/capacity-experiment/minimalloc-benchmarks/tvm-hillclimb/csv-out"
-makespan_file="/workspace/results/capacity-experiment/minimalloc-benchmarks/tvm-hillclimb/makespan/makespan.txt"
+outfiles="/workspace/results/capacity-experiment/mindspore-benchmarks/tvm-hillclimb/csv-out"
+makespan_file="/workspace/results/capacity-experiment/mindspore-benchmarks/tvm-hillclimb/makespan/makespan.txt"
 > $makespan_file
 
 for file in $outfiles/*.csv; do
