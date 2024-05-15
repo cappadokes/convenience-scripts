@@ -4,7 +4,7 @@ adapt_bin="/workspace/idealloc/adapt"
 report_bin="/workspace/idealloc/report"
 
 output_dir="/workspace/results/time-makespan/minimalloc-benchmarks/xla-desc-size-heap-sim/csv-out"
-load_file="/workspace/capacity-experiment/loads/minimalloc-loads.csv"
+load_file="/workspace/results/capacity-experiment/loads/minimalloc-loads.csv"
 > $load_file
 
 for file in $output_dir/*.csv; do
