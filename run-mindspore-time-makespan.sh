@@ -18,7 +18,7 @@ for benchmark_type in "${benchmark_types[@]}"; do
             filename_no_ext="${base_filename%.*}"
             output=$(BASE_PATH=/workspace/results/time-makespan/$benchmark_type-benchmarks/mindspore TRACE_NAME=$filename_no_ext timeout 3m $bin $input 2>&1)
             ret=$?
-            time=$(echo $output | grep "Time elapsed" | awk '{print $4}')
+            time=$(echo $output | grep -oE 'Time elapsed: [0-9]+' | awk '{print $3}')
             if [ $ret -eq 124 ]; then
                 echo -n "Failed," >> $time_file
                 if [ -f "/workspace/results/time-makespan/$benchmark_type-benchmarks/mindspore/csv-out/$filename_no_ext-out.csv" ]; then
