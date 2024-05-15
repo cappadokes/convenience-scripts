@@ -6,7 +6,10 @@ while read -r number; do
     loads+=("$number")
 done < /workspace/results/capacity-experiment/loads/minimalloc-loads.csv
 
-printf '%s\n' "${loads[@]}"
+for num in "${loads[@]}"; do
+    result=$(echo "scale=2; $num * 125 / 100" | bc)
+    echo "Original number: $num, Result: $result"
+done
 
 # time_file="/workspace/results/capactiy-experiment/minimalloc-benchmarks/tvm-hillclimb/time/time.csv"
 # > $time_file
