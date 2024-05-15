@@ -1,5 +1,8 @@
 load_file="/workspace/results/capacity-experiment/loads/minimalloc-loads.csv"
-mapfile -t loads < "$load_file"
+loads=()
+while IFS= read -r number; do
+    loads+=("$number")
+done < "$load_file"
 printf '%s\n' "${loads[@]}"
 
 # time_file="/workspace/results/capactiy-experiment/minimalloc-benchmarks/tvm-hillclimb/time/time.csv"
