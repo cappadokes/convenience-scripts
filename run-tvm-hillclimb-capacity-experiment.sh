@@ -1,6 +1,7 @@
 #!/bin/bash
 
 load_file="/workspace/results/capacity-experiment/loads/minimalloc-loads.csv"
+cat $load_file
 loads=()
 while IFS=',' read -ra line; do
     echo $line
