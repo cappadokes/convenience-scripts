@@ -12,10 +12,10 @@ for ((i=1; i<=20; i++)) do
         filename_no_ext="${base_filename%.*}"
         new_filename="${filename_no_ext}-out.csv"
 
-        time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename 2>&1)
+        time=$(timeout --foreground 3m /workspace/minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename 2>&1)
 
         if [ $? -eq 124 ]; then
-            time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false 2>&1)
+            time=$(timeout --foreground 3m /workspace/minimalloc/minimalloc --capacity=1048576 --input=$input --output=/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false 2>&1)
             if [ $? -eq 124 ]; then
                 echo -n "Failed," >> $time_file
                 if [ -f "/workspace/results/time-makespan/minimalloc-benchmarks/minimalloc/csv-out/$new_filename" ]; then
@@ -72,10 +72,10 @@ for ((i=1; i<=20; i++)) do
         filename_no_ext="${base_filename%.*}"
         new_filename="${filename_no_ext}-out.csv"
 
-        time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename 2>&1)
+        time=$(timeout --foreground 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename 2>&1)
 
         if [ $? -eq 124 ]; then
-            time=$(timeout 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false 2>&1)
+            time=$(timeout --foreground 3m /workspace/minimalloc/minimalloc --capacity=$capacity --input=$input --output=/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename --canonical_only=false --check_dominance=false --monotonic_floor=false 2>&1)
             if [ $? -eq 124 ]; then
                 echo -n "Failed," >> $time_file
                 if [ -f "/workspace/results/time-makespan/mindspore-benchmarks/minimalloc/csv-out/$new_filename" ]; then

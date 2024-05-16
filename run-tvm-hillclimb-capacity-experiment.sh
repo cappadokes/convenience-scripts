@@ -33,7 +33,7 @@ for percentage in "${percentages[@]}"; do
         capacity=${capacities[$index]}
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
-        time=$(BASE_PATH=/workspace/results/capacity-experiment/minimalloc-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext-$percentage timeout 3m $bin $input hillclimb $capacity)
+        time=$(BASE_PATH=/workspace/results/capacity-experiment/minimalloc-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext-$percentage timeout --foreground 3m $bin $input hillclimb $capacity)
         ret=$?
         if [ $ret -eq 124 ]; then
             echo -n "Failed," >> $time_file
@@ -99,7 +99,7 @@ for i in {0..2}; do
 
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
-        time=$(BASE_PATH=/workspace/results/capacity-experiment/mindspore-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext-$percentage timeout 3m $bin $input hillclimb $capacity)
+        time=$(BASE_PATH=/workspace/results/capacity-experiment/mindspore-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext-$percentage timeout --foreground 3m $bin $input hillclimb $capacity)
         ret=$?
         if [ $ret -eq 124 ]; then
             echo -n "Failed," >> $time_file

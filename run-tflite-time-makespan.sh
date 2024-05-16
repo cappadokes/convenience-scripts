@@ -18,7 +18,7 @@ for algo in "${algorithms[@]}"; do
             for input in /workspace/benchmarks/presorted/$benchmark_type/*.csv; do
                 base_filename=$(basename "$input")
                 filename_no_ext="${base_filename%.*}"
-                time=$(BASE_PATH=/workspace/results/time-makespan/$benchmark_type-benchmarks/tflite-$algo TRACE_NAME=$filename_no_ext timeout 3m $bin $input $algo)
+                time=$(BASE_PATH=/workspace/results/time-makespan/$benchmark_type-benchmarks/tflite-$algo TRACE_NAME=$filename_no_ext timeout --foreground 3m $bin $input $algo)
                 ret=$?
                 if [ $ret -eq 124 ]; then
                     echo -n "Failed," >> $time_file

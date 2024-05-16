@@ -16,7 +16,7 @@ for benchmark_type in "${benchmark_types[@]}"; do
         for input in /workspace/benchmarks/$benchmark_type/*.csv; do
             base_filename=$(basename "$input")
             filename_no_ext="${base_filename%.*}"
-            output=$(BASE_PATH=/workspace/results/time-makespan/$benchmark_type-benchmarks/mindspore TRACE_NAME=$filename_no_ext timeout 3m $bin $input 2>&1)
+            output=$(BASE_PATH=/workspace/results/time-makespan/$benchmark_type-benchmarks/mindspore TRACE_NAME=$filename_no_ext timeout --foreground 3m $bin $input 2>&1)
             ret=$?
             time=$(echo $output | grep -oE 'Time elapsed: [0-9]+' | awk '{print $3}')
             if [ $ret -eq 124 ]; then

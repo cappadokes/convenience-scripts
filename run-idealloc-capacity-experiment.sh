@@ -55,7 +55,7 @@ for idealloc_version in "${idealloc_versions[@]}"; do
             capacity=${capacities[$index]}
             $adapt_bin $input
             filename_no_ext=$(basename -- "$input" .csv)
-            output=$(timeout 3m $coreba_bin --capacity=$capacity $flags "$filename_no_ext.plc")
+            output=$(timeout --foreground 3m $coreba_bin --capacity=$capacity $flags "$filename_no_ext.plc")
             ret=$?
             makespan=$(echo "$output" | grep -oE 'Improved! Current best = [0-9]+' | tail -n 1 | awk '{print $5}')
             time=$(echo "$output" | grep -oE 'Allocation time was [0-9]+' | awk '{print $4}')
@@ -112,7 +112,7 @@ for idealloc_version in "${idealloc_versions[@]}"; do
 
             $adapt_bin $input
             filename_no_ext=$(basename -- "$input" .csv)
-            output=$(timeout 3m $coreba_bin --capacity=$capacity $flags "$filename_no_ext.plc")
+            output=$(timeout --foreground 3m $coreba_bin --capacity=$capacity $flags "$filename_no_ext.plc")
             ret=$?
             makespan=$(echo "$output" | grep -oE 'Improved! Current best = [0-9]+' | tail -n 1 | awk '{print $5}')
             time=$(echo "$output" | grep -oE 'Allocation time was [0-9]+' | awk '{print $4}')

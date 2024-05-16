@@ -18,7 +18,7 @@ for algo in "${algorithms[@]}"; do
             for input in /workspace/benchmarks/$benchmark_type/*.csv; do
                 base_filename=$(basename "$input")
                 filename_no_ext="${base_filename%.*}"
-                time=$(BASE_PATH=/workspace/results/time-makespan/$benchmark_type-benchmarks/tvm-$algo TRACE_NAME=$filename_no_ext timeout 3m $bin $input $algo 1)
+                time=$(BASE_PATH=/workspace/results/time-makespan/$benchmark_type-benchmarks/tvm-$algo TRACE_NAME=$filename_no_ext timeout --foreground 3m $bin $input $algo 1)
                 ret=$?
                 if [ $ret -eq 124 ]; then
                     echo -n "Failed," >> $time_file
@@ -61,7 +61,7 @@ for ((i=1; i<=20; i++)) do
     for input in /workspace/benchmarks/minimalloc/*.csv; do
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
-        time=$(BASE_PATH=/workspace/results/time-makespan/minimalloc-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext timeout 3m $bin $input hillclimb 1048576)
+        time=$(BASE_PATH=/workspace/results/time-makespan/minimalloc-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext timeout --foreground 3m $bin $input hillclimb 1048576)
         ret=$?
         if [ $ret -eq 124 ]; then
             echo -n "Failed," >> $time_file
@@ -109,7 +109,7 @@ for ((i=1; i<=20; i++)) do
         base_filename=$(basename "$input")
         filename_no_ext="${base_filename%.*}"
         capacity=$(( ${idealloc_res[$index]} * 4096 ))
-        time=$(BASE_PATH=/workspace/results/time-makespan/mindspore-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext timeout 3m $bin $input hillclimb $capacity)
+        time=$(BASE_PATH=/workspace/results/time-makespan/mindspore-benchmarks/tvm-hillclimb TRACE_NAME=$filename_no_ext timeout --foreground 3m $bin $input hillclimb $capacity)
         ret=$?
         if [ $ret -eq 124 ]; then
             echo -n "Failed," >> $time_file
