@@ -10,7 +10,7 @@ for idealloc_version in "${idealloc_versions[@]}"; do
     flags=""
     case $idealloc_version in
         "idealloc-r1")
-            flags="1 MCTS:RAND"
+            flags="MCTS:RAND"
             ;;
         "idealloc-montecarlo-0")
             flags="MCTS:UCT\(0\)"
