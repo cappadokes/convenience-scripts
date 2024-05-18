@@ -62,7 +62,7 @@ do
         mkdir /workspace/results/capacity-experiment/$benchmark_type-benchmarks/$packer/makespan
     done
 
-    packers=("idealloc-r1" "idealloc-montecarlo-0" "idealloc-montecarlo-0.1" "idealloc-montecarlo-0.4")
+    packers=("idealloc-r" "idealloc-montecarlo-0" "idealloc-montecarlo-0.1" "idealloc-montecarlo-0.4")
 
     for packer in "${packers[@]}"
     do

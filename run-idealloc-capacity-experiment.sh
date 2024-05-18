@@ -4,12 +4,12 @@ adapt_bin="/workspace/idealloc/adapt"
 report_bin="/workspace/idealloc/report"
 coreba_bin="/workspace/idealloc/coreba"
 
-idealloc_versions=("idealloc-r1" "idealloc-montecarlo-0" "idealloc-montecarlo-0.1" "idealloc-montecarlo-0.4")
+idealloc_versions=("idealloc-r" "idealloc-montecarlo-0" "idealloc-montecarlo-0.1" "idealloc-montecarlo-0.4")
 
 for idealloc_version in "${idealloc_versions[@]}"; do
     flags=""
     case $idealloc_version in
-        "idealloc-r1")
+        "idealloc-r")
             flags="MCTS:RAND"
             ;;
         "idealloc-montecarlo-0")
