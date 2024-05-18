@@ -47,7 +47,11 @@ for idealloc_version in "${idealloc_versions[@]}"; do
         for num in "${loads[@]}"; do
             result=$(echo "scale=2; $num * $percentage / 100" | bc)
             ceiling=$(echo "$result" | awk '{print ($0-int($0)>0)?int($0)+1:int($0)}')
-            capacities+=("$ceiling")
+
+            pages=$(echo "scale=2; $ceiling / 4096" | bc)
+            ceiling_pages=$(echo "$pages" | awk '{print ($0-int($0)>0)?int($0)+1:int($0)}')
+
+            capacities+=("$ceiling_pages")
         done
 
         index=0
@@ -110,9 +114,12 @@ for idealloc_version in "${idealloc_versions[@]}"; do
             result=$(echo "scale=2; $load * $percentage / 100" | bc)
             capacity=$(echo "$result" | awk '{print ($0-int($0)>0)?int($0)+1:int($0)}')
 
+            pages=$(echo "scale=2; $capacity / 4096" | bc)
+            capacity_pages=$(echo "$pages" | awk '{print ($0-int($0)>0)?int($0)+1:int($0)}')
+
             $adapt_bin $input
             filename_no_ext=$(basename -- "$input" .csv)
-            output=$(timeout --foreground 3m $coreba_bin --capacity=$capacity $flags "$filename_no_ext.plc")
+            output=$(timeout --foreground 3m $coreba_bin --capacity=$capacity_pages $flags "$filename_no_ext.plc")
             ret=$?
             makespan=$(echo "$output" | grep -oE 'Improved! Current best = [0-9]+' | tail -n 1 | awk '{print $5}')
             time=$(echo "$output" | grep -oE 'Allocation time was [0-9]+' | awk '{print $4}')
