@@ -67,7 +67,7 @@ for idealloc_version in "${idealloc_versions[@]}"; do
             if [ $ret -eq 124 ]; then
                 echo -n "Failed," >> "$time_file"
             else
-                echo "$filename_no_ext: $makespan" >> "$makespan_file"
+                echo "$filename_no_ext-$percentage-out: $makespan" >> "$makespan_file"
                 echo -n "$time," >> "$time_file"
             fi
             
@@ -127,7 +127,7 @@ for idealloc_version in "${idealloc_versions[@]}"; do
             if [ $ret -eq 124 ]; then
                 echo -n "Failed," >> "$time_file"
             else
-                echo "$filename_no_ext: $makespan" >> "$makespan_file"
+                echo "$filename_no_ext-$percentage-out: $makespan" >> "$makespan_file"
                 echo -n "$time," >> "$time_file"
             fi
             
