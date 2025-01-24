@@ -11,36 +11,37 @@ if ! [[ $1 =~ ^[0-9]+$ ]]; then
 fi
 
 num_jobs=$1
+cmake=/home/cmake-3.31.4-linux-x86_64/bin/cmake
 
-cd /workspace/tvm
+cd /home/workspace/tvm
 
-mkdir /workspace/tvm/build
-cp /workspace/tvm/cmake/config.cmake /workspace/tvm/build
+mkdir /home/workspace/tvm/build
+cp /home/workspace/tvm/cmake/config.cmake /home/workspace/tvm/build
 
-config_path=/workspace/tvm/build/config.cmake
+config_path=/home/workspace/tvm/build/config.cmake
 sed -i 's/set(BUILD_STATIC_RUNTIME OFF)/set(BUILD_STATIC_RUNTIME ON)/g' "$config_path"
 sed -i 's/set(USE_CCACHE AUTO)/set(USE_CCACHE ON)/g' "$config_path"
 sed -i 's/set(USE_LIBBACKTRACE AUTO)/set(USE_LIBBACKTRACE COMPILE)/g' "$config_path"
 
-cd /workspace/tvm/build
-cmake .. -G Ninja
+cd /home/workspace/tvm/build
+"$cmake" .. -G Ninja
 ninja -j $num_jobs
 
-cd /workspace/tvm-wrapper
+cd /home/workspace/tvm-wrapper
 
 git clone https://github.com/dmlc/dmlc-core.git
-cd /workspace/tvm-wrapper/dmlc-core
-cmake . -G Ninja
+cd /home/workspace/tvm-wrapper/dmlc-core
+"$cmake" . -G Ninja
 ninja -j $num_jobs
 
-cd /workspace/tvm-wrapper
+cd /home/workspace/tvm-wrapper
 git clone https://github.com/dmlc/dlpack.git
-cd /workspace/tvm-wrapper/dlpack
-cmake . -G Ninja
+cd /home/workspace/tvm-wrapper/dlpack
+"$cmake" . -G Ninja
 ninja -j $num_jobs
 
-cd /workspace/tvm-wrapper
-cmake . -G Ninja
+cd /home/workspace/tvm-wrapper
+"$cmake" . -G Ninja
 ninja -j $num_jobs
 
-cd /workspace
+cd /home/workspace
