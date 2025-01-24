@@ -14,7 +14,7 @@ num_jobs=$1
 
 cd /home/workspace/mindspore-wrapper
 git clone https://github.com/martinus/robin-hood-hashing.git
-cd /workspace/mindspore-wrapper/robin-hood-hashing
+cd /home/workspace/mindspore-wrapper/robin-hood-hashing
 cmake . -DCMAKE_BUILD_TYPE=Release -G Ninja
 ninja -j $num_jobs
 
