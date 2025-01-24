@@ -11,16 +11,17 @@ if ! [[ $1 =~ ^[0-9]+$ ]]; then
 fi
 
 num_jobs=$1
+cmake=/home/cmake-3.31.4-linux-x86_64/bin/cmake
 
 cd /home/workspace/mindspore-wrapper
 git clone https://github.com/martinus/robin-hood-hashing.git
 cd /home/workspace/mindspore-wrapper/robin-hood-hashing
-cmake . -DCMAKE_BUILD_TYPE=Release -G Ninja
+"$cmake" . -DCMAKE_BUILD_TYPE=Release -G Ninja
 ninja -j $num_jobs
 
 cd /home/workspace/mindspore-wrapper
 conan install . --build=missing
-cmake . -DCMAKE_BUILD_TYPE=Release -G Ninja
+"$cmake" . -DCMAKE_BUILD_TYPE=Release -G Ninja
 ninja -j $num_jobs
 
 cd /home/workspace
