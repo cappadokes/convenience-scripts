@@ -24,24 +24,24 @@ sed -i 's/set(USE_CCACHE AUTO)/set(USE_CCACHE ON)/g' "$config_path"
 sed -i 's/set(USE_LIBBACKTRACE AUTO)/set(USE_LIBBACKTRACE COMPILE)/g' "$config_path"
 
 cd /home/workspace/tvm/build
-"$cmake" .. -G Ninja
+"$cmake" .. -DCMAKE_BUILD_TYPE=Release -G Ninja
 ninja -j $num_jobs
 
 cd /home/workspace/tvm-wrapper
 
 git clone https://github.com/dmlc/dmlc-core.git
 cd /home/workspace/tvm-wrapper/dmlc-core
-"$cmake" . -G Ninja
+"$cmake" . -DCMAKE_BUILD_TYPE=Release -G Ninja
 ninja -j $num_jobs
 
 cd /home/workspace/tvm-wrapper
 git clone https://github.com/dmlc/dlpack.git
 cd /home/workspace/tvm-wrapper/dlpack
-"$cmake" . -G Ninja
+"$cmake" . -DCMAKE_BUILD_TYPE=Release -G Ninja
 ninja -j $num_jobs
 
 cd /home/workspace/tvm-wrapper
-"$cmake" . -G Ninja
+"$cmake" . -DCMAKE_BUILD_TYPE=Release -G Ninja
 ninja -j $num_jobs
 
 cd /home/workspace
